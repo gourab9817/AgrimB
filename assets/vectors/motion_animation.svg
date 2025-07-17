@@ -1,0 +1,78 @@
+<svg width="309" height="687" viewBox="0 0 309 687" xmlns="http://www.w3.org/2000/svg">
+  <!-- White background -->
+  <rect width="309" height="687" fill="#FFFFFF" />
+
+  <!-- Shape #1 -->
+  <path id="shape1" fill="#9BCE9577" d="
+    M476.25,135
+      C476.25,3.28 359.73,-103.5 216,-103.5
+      C72.27,-103.5 -44.25,3.28 -44.25,135
+      C-44.25,266.72 72.27,373.5 216,373.5
+      C359.73,373.5 476.25,266.72 476.25,135
+    Z" opacity="0">
+    <!-- Fade in: 0 -> 1 over 2s -->
+    <animate
+       attributeName="opacity"
+       from="0"
+       to="1"
+       begin="0s"
+       dur="2s"
+       fill="freeze" />
+    <!-- Fade out: 1 -> 0 over 1.5s, starting at 2s -->
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       begin="2s"
+       dur="1.5s"
+       fill="freeze" />
+  </path>
+
+  <!-- Shape #2 -->
+  <path id="shape2" fill="#99F9EDDD" d="
+    M239.25,394.125
+      C239.25,266.34 151.10626,162.75 42.375,162.75
+      C-66.356026,162.75 -154.5,266.34 -154.5,394.125
+      C-154.5,521.91003 -66.356026,625.5 42.375,625.5
+      C151.10626,625.5 239.25,521.91003 239.25,394.125
+    Z" opacity="0">
+    <animate
+       attributeName="opacity"
+       from="0"
+       to="1"
+       begin="0s"
+       dur="2s"
+       fill="freeze" />
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       begin="2s"
+       dur="1.5s"
+       fill="freeze" />
+  </path>
+
+  <!-- Shape #3 -->
+  <path id="shape3" fill="#A3FFC76D" d="
+    M491.25,637.5
+      C491.25,474.3 371.37448,342 223.5,342
+      C75.6255,342 -44.25,474.3 -44.25,637.5
+      C-44.25,800.7 75.6255,933 223.5,933
+      C371.37448,933 491.25,800.7 491.25,637.5
+    Z" opacity="0">
+    <animate
+       attributeName="opacity"
+       from="0"
+       to="1"
+       begin="0s"
+       dur="2s"
+       fill="freeze" />
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       begin="2s"
+       dur="1.5s"
+       fill="freeze" />
+  </path>
+</svg>

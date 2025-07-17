@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "594700370108",
+    "project_id": "agritech-fbd5e",
+    "storage_bucket": "agritech-fbd5e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594700370108:android:29e1ce486c5e6dce1890b9",
+        "android_client_info": {
+          "package_name": "com.example.agrim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594700370108-qfcistloin65vgmu90ngo2v7kmka36cr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.agrim",
+            "certificate_hash": "560934ace5ad7e64e5cf5de9d28bd5c243876e1e"
+          }
+        },
+        {
+          "client_id": "594700370108-dhvtiki4hs9orm4tjpvgp6qsc3hinmds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvacXctcDLG_PDxdFR7KNrFVc4QPLtgbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594700370108-dhvtiki4hs9orm4tjpvgp6qsc3hinmds.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "594700370108-m6mpqeinfvdbda4igo7jtksb5l5295j1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.agrim"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594700370108:android:1d7222b347c96fba1890b9",
+        "android_client_info": {
+          "package_name": "com.example.agrimb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594700370108-dhvtiki4hs9orm4tjpvgp6qsc3hinmds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvacXctcDLG_PDxdFR7KNrFVc4QPLtgbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594700370108-dhvtiki4hs9orm4tjpvgp6qsc3hinmds.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "594700370108-m6mpqeinfvdbda4igo7jtksb5l5295j1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.agrim"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
