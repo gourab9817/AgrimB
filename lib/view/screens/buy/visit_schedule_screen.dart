@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_text_style.dart';
 import '../../../core/constants/app_spacing.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../data/models/listing_model.dart';
 import '../../widgets/appbar/navbar.dart';
 import 'package:provider/provider.dart';
@@ -91,7 +92,7 @@ class _VisitScheduleScreenState extends State<VisitScheduleScreen> {
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Visit schedule', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+        title: Text(context.l10n('visit_schedule'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.l),
@@ -144,29 +145,29 @@ class _VisitScheduleScreenState extends State<VisitScheduleScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    Text('Quantity: ', style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
-                                    Text('${listing.quantity} quintals', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
+                                    Text(context.l10n('quantity'), style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
+                                    Text('${listing.quantity} ${context.l10n('quintals')}', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                                   ],
                                 ),
                                 const SizedBox(height: 4),
                                 Row(
                                   children: [
-                                    Text('Agreed Price: ', style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
-                                    Text('₹${listing.price}/quintal', style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
+                                    Text(context.l10n('agreed_price'), style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
+                                    Text(context.l10n('price_per_quintal').replaceAll('{price}', listing.price.toString()), style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
                                   ],
                                 ),
                                 const SizedBox(height: 4),
                                 Row(
                                   children: [
-                                    Text('Quality indicator: ', style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
+                                    Text(context.l10n('quality_indicator'), style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
                                     Text(listing.qualityIndicator, style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                                   ],
                                 ),
                                 const SizedBox(height: 4),
                                 Row(
                                   children: [
-                                    Text('Claimed Date: ', style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
-                                    Text('1 March 2025', style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
+                                    Text(context.l10n('claimed_date'), style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
+                                    Text(context.l10n('march_1_2025'), style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
                                   ],
                                 ),
                               ],
@@ -185,26 +186,26 @@ class _VisitScheduleScreenState extends State<VisitScheduleScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 8),
-                          _buildLabel('Visit Date & Time :'),
+                          _buildLabel(context.l10n('visit_date_time')),
                           _buildInputField(
                             controller: _dateTimeController,
-                            hint: 'Select date & time',
+                            hint: context.l10n('select_date_time'),
                             readOnly: true,
                             onTap: _pickDateTime,
                             suffixIcon: Icons.calendar_today,
                           ),
                           const SizedBox(height: 12),
-                          _buildLabel('Seller Contact :'),
-                          _buildInputField(controller: _contactController, hint: 'Enter contact'),
+                          _buildLabel(context.l10n('seller_contact')),
+                          _buildInputField(controller: _contactController, hint: context.l10n('enter_contact')),
                           const SizedBox(height: 12),
-                          _buildLabel('Seller Name :'),
-                          _buildInputField(controller: _nameController, hint: 'Enter name'),
+                          _buildLabel(context.l10n('seller_name')),
+                          _buildInputField(controller: _nameController, hint: context.l10n('enter_name')),
                           const SizedBox(height: 12),
-                          _buildLabel('Seller Address :'),
-                          _buildInputField(controller: _addressController, hint: 'Enter address'),
+                          _buildLabel(context.l10n('seller_address')),
+                          _buildInputField(controller: _addressController, hint: context.l10n('enter_address')),
                           const SizedBox(height: 12),
-                          _buildLabel('Please Enter the meeting point:'),
-                          _buildInputField(controller: _locationController, hint: 'Enter location'),
+                          _buildLabel(context.l10n('meeting_point')),
+                          _buildInputField(controller: _locationController, hint: context.l10n('enter_location')),
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
@@ -222,13 +223,13 @@ class _VisitScheduleScreenState extends State<VisitScheduleScreen> {
                                   : () async {
                                       if (_selectedDateTime == null) {
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text('Please select visit date & time'), backgroundColor: AppColors.error),
+                                          SnackBar(content: Text(context.l10n('please_select_visit_datetime')), backgroundColor: AppColors.error),
                                         );
                                         return;
                                       }
                                       if (_locationController.text.isEmpty) {
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text('Please enter the meeting point'), backgroundColor: AppColors.error),
+                                          SnackBar(content: Text(context.l10n('please_enter_meeting_point')), backgroundColor: AppColors.error),
                                         );
                                         return;
                                       }
@@ -236,7 +237,7 @@ class _VisitScheduleScreenState extends State<VisitScheduleScreen> {
                                       final buyerId = firebaseUser?.uid ?? '';
                                       if (buyerId.isEmpty) {
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text('User not logged in!'), backgroundColor: Colors.red),
+                                          SnackBar(content: Text(context.l10n('user_not_logged_in')), backgroundColor: Colors.red),
                                         );
                                         return;
                                       }
@@ -266,7 +267,7 @@ class _VisitScheduleScreenState extends State<VisitScheduleScreen> {
                                     },
                               child: visitScheduleVM.isLoading
                                   ? const CircularProgressIndicator(color: AppColors.brown)
-                                  : Text('Visit Schedule', style: AppTextStyle.bold16.copyWith(color: AppColors.brown)),
+                                  : Text(context.l10n('visit_schedule_button'), style: AppTextStyle.bold16.copyWith(color: AppColors.brown)),
                             ),
                           ),
                           const SizedBox(height: 8),

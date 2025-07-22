@@ -12,6 +12,7 @@ import 'buy_card.dart';
 // Remove the old weather_data.dart import - it's no longer needed
 import 'package:provider/provider.dart';
 import '../../../view_model/profile/profile_view_model.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -41,16 +42,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     // Dummy data for demonstration
     final mandiData = [
-      {'name': 'Mustard', 'price': '₹71,000/MT', 'change': '+₹12,496 since last month'},
-      {'name': 'Wheat', 'price': '₹28,500/MT', 'change': '+₹638 since last month'},
+      {'name': context.l10n('mustard'), 'price': context.l10n('price_per_mt').replaceAll('{price}', '71,000'), 'change': context.l10n('price_change_since_last_month').replaceAll('{change}', '12,496')},
+      {'name': context.l10n('wheat'), 'price': context.l10n('price_per_mt').replaceAll('{price}', '28,500'), 'change': context.l10n('price_change_since_last_month').replaceAll('{change}', '638')},
     ];
 
     // Best deals data 
-    final bestDealsList = [
-      {'image': AppAssets.wheat, 'title': 'Premium Wheat Deal'},
-      {'image': AppAssets.vagetables, 'title': 'Fresh Vegetables'},
-      {'image': AppAssets.tomato, 'title': 'Organic Tomatoes'},
-    ];
+    final bestDealsList = getBestDealsList(context);
 
     return Scaffold(
       appBar: const DashboardAppBar(),
@@ -67,7 +64,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               
               const SizedBox(height: 16),
               
-              const SectionTitle(title: 'Buy Crop'),
+              SectionTitle(title: context.l10n('buy_crop')),
               Center(
                 child: FeatureCard(
                   onTap: () {
@@ -80,7 +77,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               
               MandiBhavCard(mandiData: mandiData),
               
-              const SectionTitle(title: 'Best Deals'),
+              SectionTitle(title: context.l10n('best_deals')),
               SizedBox(
                 height: 140,
                 child: ListView(

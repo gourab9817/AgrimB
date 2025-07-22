@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../widgets/auth/app_button.dart';
 import '../../../routes/app_routes.dart';
 import '../../../view_model/auth/profile_verification_view_model.dart';
@@ -30,7 +31,7 @@ class _ProfileVerificationBody extends StatelessWidget {
     if (verified) {
       CustomNotification.showSuccess(
         context: context,
-        message: 'Your profile has been verified! Redirecting...'
+        message: context.l10n('profile_verified_success')
       );
       await Future.delayed(const Duration(seconds: 1));
       if (context.mounted) {
@@ -39,7 +40,7 @@ class _ProfileVerificationBody extends StatelessWidget {
     } else {
       CustomNotification.showInfo(
         context: context,
-        message: 'Your profile is not verified yet. Please try again later.',
+        message: context.l10n('profile_not_verified'),
       );
     }
   }
@@ -54,7 +55,7 @@ class _ProfileVerificationBody extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             automaticallyImplyLeading: false,
-            title: const Text('Account Verification', style: TextStyle(color: AppColors.brown)),
+            title: Text(context.l10n('account_verification'), style: const TextStyle(color: AppColors.brown)),
             centerTitle: true,
           ),
           body: SafeArea(
@@ -73,20 +74,20 @@ class _ProfileVerificationBody extends StatelessWidget {
                         const SizedBox(height: 60),
                         const Icon(Icons.verified_user, size: 100, color: AppColors.orange),
                         const SizedBox(height: 32),
-                        const Text(
-                          'Your account is under verification',
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.brown),
+                        Text(
+                          context.l10n('account_under_verification'),
+                          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.brown),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Thank you for signing up!\nOur team is reviewing your details. You will be notified once your profile is verified.\n\nYou cannot access the app until verification is complete.',
+                          context.l10n('thank_you_signing_up'),
                           style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 40),
                         BasicAppButton(
-                          title: viewModel.isChecking ? 'Checking...' : 'Check Verification',
+                          title: viewModel.isChecking ? context.l10n('checking') : context.l10n('check_verification'),
                           onPressed: viewModel.isChecking
                               ? null
                               : () async {
@@ -94,7 +95,7 @@ class _ProfileVerificationBody extends StatelessWidget {
                                   if (verified) {
                                     CustomNotification.showSuccess(
                                       context: context,
-                                      message: 'Your profile has been verified! Redirecting...'
+                                      message: context.l10n('profile_verified_success')
                                     );
                                     await Future.delayed(const Duration(seconds: 1));
                                     if (context.mounted) {
@@ -103,16 +104,16 @@ class _ProfileVerificationBody extends StatelessWidget {
                                   } else {
                                     CustomNotification.showInfo(
                                       context: context,
-                                      message: 'Your profile is not verified yet. Please try again later.',
+                                      message: context.l10n('profile_not_verified'),
                                     );
                                   }
                                 },
                           backgroundColor: AppColors.brown,
                         ),
                         const SizedBox(height: 20),
-                        const Text(
-                          'Pull down to refresh and check verification status.',
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        Text(
+                          context.l10n('pull_down_to_refresh'),
+                          style: const TextStyle(fontSize: 14, color: Colors.grey),
                           textAlign: TextAlign.center,
                         ),
                       ],

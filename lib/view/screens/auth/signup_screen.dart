@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../widgets/auth/auth_header.dart';
 import '../../widgets/auth/email_input.dart';
 import '../../widgets/auth/password_input.dart';
@@ -82,14 +83,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  const AuthHeader(
-                    title: 'Create Account',
-                    subtitle: 'Fill in your details to get started',
+                  AuthHeader(
+                    title: context.l10n('create_account'),
+                    subtitle: context.l10n('fill_details_to_start'),
                   ),
                   TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                      hintText: 'Full Name',
+                      hintText: context.l10n('full_name'),
                       prefixIcon: const Icon(Icons.person_outline, color: Colors.grey),
                       filled: true,
                       fillColor: const Color(0xFFF2F2F2),
@@ -99,7 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    validator: (value) => value == null || value.isEmpty ? 'Please enter your name' : null,
+                    validator: (value) => value == null || value.isEmpty ? context.l10n('please_enter_name') : null,
                   ),
                   const SizedBox(height: 16),
                   EmailInput(controller: _emailController),
@@ -111,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   TextFormField(
                     controller: _addressController,
                     decoration: InputDecoration(
-                      hintText: 'Address',
+                      hintText: context.l10n('address'),
                       prefixIcon: const Icon(Icons.home_outlined, color: Colors.grey),
                       filled: true,
                       fillColor: const Color(0xFFF2F2F2),
@@ -121,13 +122,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    validator: (value) => value == null || value.isEmpty ? 'Please enter your address' : null,
+                    validator: (value) => value == null || value.isEmpty ? context.l10n('please_enter_address') : null,
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _idNumberController,
                     decoration: InputDecoration(
-                      hintText: 'ID Number',
+                      hintText: context.l10n('id_number'),
                       prefixIcon: const Icon(Icons.badge_outlined, color: Colors.grey),
                       filled: true,
                       fillColor: const Color(0xFFF2F2F2),
@@ -137,12 +138,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    validator: (value) => value == null || value.isEmpty ? 'Please enter your ID number' : null,
+                    validator: (value) => value == null || value.isEmpty ? context.l10n('please_enter_id') : null,
                   ),
                   const SizedBox(height: 16),
                   PasswordInput(controller: _passwordController),
                   const SizedBox(height: 16),
-                  PasswordInput(controller: _confirmPasswordController, hintText: 'Confirm Password'),
+                  PasswordInput(controller: _confirmPasswordController, hintText: context.l10n('confirm_password')),
                   const SizedBox(height: 24),
                   BasicAppButton(
                     onPressed: viewModel.isLoading
@@ -151,13 +152,13 @@ class _SignupScreenState extends State<SignupScreen> {
                             if (_formKey.currentState!.validate()) {
                               if (_passwordController.text != _confirmPasswordController.text) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Passwords do not match'), backgroundColor: Colors.red),
+                                  SnackBar(content: Text(context.l10n('passwords_dont_match')), backgroundColor: Colors.red),
                                 );
                                 return;
                               }
                               if (_phoneNumber.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Please enter a valid phone number'), backgroundColor: Colors.red),
+                                  SnackBar(content: Text(context.l10n('please_enter_phone')), backgroundColor: Colors.red),
                                 );
                                 return;
                               }
@@ -178,16 +179,16 @@ class _SignupScreenState extends State<SignupScreen> {
                               }
                             }
                           },
-                    title: viewModel.isLoading ? 'Creating Account...' : 'Create Account',
+                    title: viewModel.isLoading ? context.l10n('creating_account') : context.l10n('create_account'),
                   ),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Already have an account?', style: TextStyle(color: Colors.grey)),
+                      Text(context.l10n('already_have_account'), style: const TextStyle(color: Colors.grey)),
                       TextButton(
                         onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
-                        child: const Text('Login', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+                        child: Text(context.l10n('login'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),

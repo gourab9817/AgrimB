@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/constants/app_text_style.dart';
+import '../../../../core/localization/localization_extension.dart';
 import '../../../widgets/Button/app_button.dart';
 import '../../../../view_model/buy/deal/final_deal_view_model.dart';
 import 'package:flutter/services.dart';
@@ -39,7 +40,7 @@ class _FinalDealBody extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Final Deal Price', style: TextStyle(color: AppColors.brown, fontWeight: FontWeight.bold)),
+        title: Text(context.l10n('final_deal_price'), style: const TextStyle(color: AppColors.brown, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: isLoading
@@ -72,21 +73,21 @@ class _FinalDealBody extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Center(
-                                  child: Text('Agent Input', style: AppTextStyle.bold18.copyWith(color: AppColors.orange)),
+                                  child: Text(context.l10n('agent_input'), style: AppTextStyle.bold18.copyWith(color: AppColors.orange)),
                                 ),
                                 const SizedBox(height: 18),
                                 Row(
                                   children: [
                                     Expanded(
                                       child: _InfoBox(
-                                        label: 'Farmer',
+                                        label: context.l10n('farmer'),
                                         value: data['farmerName'] ?? '-',
                                       ),
                                     ),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: _InfoBox(
-                                        label: 'Crop',
+                                        label: context.l10n('crop'),
                                         value: data['cropName'] ?? '-',
                                         isBold: true,
                                       ),
@@ -95,26 +96,26 @@ class _FinalDealBody extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 18),
                                 _DealInputField(
-                                  label: 'Final deal price',
+                                  label: context.l10n('final_deal_price_label'),
                                   controller: viewModel.finalDealPriceController,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                 ),
                                 const SizedBox(height: 16),
                                 _DealInputField(
-                                  label: 'Farmer Aadhaar Number',
+                                  label: context.l10n('farmer_aadhaar_number'),
                                   controller: viewModel.aadhaarController,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                 ),
                                 const SizedBox(height: 16),
                                 _DealInputField(
-                                  label: 'Delivery Location',
+                                  label: context.l10n('delivery_location'),
                                   controller: viewModel.locationController,
                                 ),
                                 const SizedBox(height: 16),
                                 _DealInputField(
-                                  label: 'Delivery date',
+                                  label: context.l10n('delivery_date'),
                                   controller: viewModel.deliveryDateController,
                                   readOnly: true,
                                   onTap: () => viewModel.pickDeliveryDate(context),
@@ -150,9 +151,9 @@ class _FinalDealBody extends StatelessWidget {
                                                 )
                                               : FittedBox(
                                                   fit: BoxFit.scaleDown,
-                                                  child: const Text(
-                                                    'Finalize Deal',
-                                                    style: TextStyle(
+                                                  child: Text(
+                                                    context.l10n('finalize_deal'),
+                                                    style: const TextStyle(
                                                       fontSize: 18,
                                                       fontWeight: FontWeight.bold,
                                                       color: Colors.white,

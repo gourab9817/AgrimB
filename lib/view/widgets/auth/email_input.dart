@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class EmailInput extends StatelessWidget {
   final TextEditingController controller;
@@ -11,7 +12,7 @@ class EmailInput extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        hintText: 'Email',
+        hintText: context.l10n('email'),
         prefixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
         filled: true,
         fillColor: const Color(0xFFF2F2F2),
@@ -23,10 +24,10 @@ class EmailInput extends StatelessWidget {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your email';
+          return context.l10n('please_enter_email');
         }
         if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(value)) {
-          return 'Please enter a valid email';
+          return context.l10n('please_enter_valid_email');
         }
         return null;
       },

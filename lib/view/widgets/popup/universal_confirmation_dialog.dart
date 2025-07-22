@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../core/constants/app_text_style.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class UniversalConfirmationDialog extends StatelessWidget {
   final String animationAsset;
   final String message;
   final String yesText;
   final String noText;
+  final String? messageLocalizationKey;
+  final String? yesTextLocalizationKey;
+  final String? noTextLocalizationKey;
   final VoidCallback onYes;
   final VoidCallback? onNo;
   final Color? yesColor;
@@ -21,6 +25,9 @@ class UniversalConfirmationDialog extends StatelessWidget {
     required this.message,
     required this.yesText,
     required this.noText,
+    this.messageLocalizationKey,
+    this.yesTextLocalizationKey,
+    this.noTextLocalizationKey,
     required this.onYes,
     this.onNo,
     this.yesColor,
@@ -31,6 +38,19 @@ class UniversalConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Use localized strings if keys are provided, otherwise use the provided text
+    final dialogMessage = messageLocalizationKey != null 
+        ? context.l10n(messageLocalizationKey!)
+        : message;
+        
+    final dialogYesText = yesTextLocalizationKey != null 
+        ? context.l10n(yesTextLocalizationKey!)
+        : yesText;
+        
+    final dialogNoText = noTextLocalizationKey != null 
+        ? context.l10n(noTextLocalizationKey!)
+        : noText;
+
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: AppColors.white,
@@ -42,7 +62,7 @@ class UniversalConfirmationDialog extends StatelessWidget {
             Lottie.asset(animationAsset, width: 150, repeat: false),
             const SizedBox(height: 16),
             Text(
-              message,
+              dialogMessage,
               style: AppTextStyle.bold18.copyWith(color: AppColors.brown),
               textAlign: TextAlign.center,
             ),
@@ -61,7 +81,7 @@ class UniversalConfirmationDialog extends StatelessWidget {
                       Navigator.of(context).pop();
                       if (onNo != null) onNo!();
                     },
-                    child: Text(noText, style: AppTextStyle.bold16.copyWith(color: noTextColor ?? AppColors.grey)),
+                    child: Text(dialogNoText, style: AppTextStyle.bold16.copyWith(color: noTextColor ?? AppColors.grey)),
                   ),
                 ),
                 const SizedBox(width: 18),
@@ -76,7 +96,7 @@ class UniversalConfirmationDialog extends StatelessWidget {
                       Navigator.of(context).pop();
                       onYes();
                     },
-                    child: Text(yesText, style: AppTextStyle.bold16.copyWith(color: yesTextColor ?? AppColors.white)),
+                    child: Text(dialogYesText, style: AppTextStyle.bold16.copyWith(color: yesTextColor ?? AppColors.white)),
                   ),
                 ),
               ],

@@ -116,6 +116,7 @@ flutter:
     - assets/animations/exclamation.json
     - assets/images/weather/
     - assets/images/no_data_found.png
+    - assets/translations/
   
   fonts:
     - family: Satoshi

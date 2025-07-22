@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../view/screens/splash/splash_screen.dart';
+import '../view/screens/language/language_selection_screen.dart';
 import '../view/screens/dashboard/dashboard_screen.dart';
 import '../view/screens/auth/login_screen.dart';
 import '../view/screens/auth/signup_screen.dart';
@@ -22,9 +23,11 @@ import '../../view_model/auth/profile_verification_view_model.dart';
 import '../../view_model/notification/notification_view_model.dart';
 import '../../data/repositories/notification_repository.dart';
 import '../view/screens/notification/notification_screen.dart';
+import '../view_model/language/language_selection_view_model.dart';
 
 class AppRoutes {
   static const String splash = '/';
+  static const String languageSelection = '/language-selection';
   static const String dashboard = '/dashboard';
   static const String login = '/login';
   static const String signup = '/signup';
@@ -45,6 +48,13 @@ class AppRoutes {
     switch (settings.name) {
       case splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case languageSelection:
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => LanguageSelectionViewModel(),
+            child: const LanguageSelectionScreen(),
+          ),
+        );
       case dashboard:
         return MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
+import 'core/localization/app_localizations.dart';
 import 'routes/app_routes.dart';
 import 'view_model/splash/splash_view_model.dart';
+import 'view_model/language/language_selection_view_model.dart';
 import 'data/services/local_storage_service.dart';
 import 'data/services/firebase_service.dart';
 import 'data/services/notification_service.dart';
@@ -47,6 +49,7 @@ void main() async {
         ),
         ChangeNotifierProvider(create: (_) => SplashViewModel()),
         ChangeNotifierProvider(create: (_) => WeatherViewModel()), // Add WeatherViewModel
+        ChangeNotifierProvider(create: (_) => LanguageSelectionViewModel()),
         ChangeNotifierProxyProvider<UserRepository, SignupViewModel>(
           create: (context) => SignupViewModel(userRepository: Provider.of<UserRepository>(context, listen: false)),
           update: (context, userRepository, previous) => SignupViewModel(userRepository: userRepository),
@@ -95,6 +98,13 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.splash,
       onGenerateRoute: AppRoutes.generateRoute,
       navigatorObservers: [routeObserver],
+      localizationsDelegates: const [
+        AppLocalizationsDelegate(),
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('hi'),
+      ],
     );
   }
 }

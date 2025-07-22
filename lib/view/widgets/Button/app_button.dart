@@ -1,10 +1,12 @@
 // view/widgets/Button/app_button.dart
 import 'package:flutter/material.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class BasicAppButton extends StatelessWidget {
   final VoidCallback? onPressed; // Changed to nullable
   final String title;
+  final String? localizationKey;
   final double? height;
   final Color? backgroundColor;
   final Color? textColor;
@@ -14,6 +16,7 @@ class BasicAppButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.title,
+    this.localizationKey,
     this.height,
     this.backgroundColor,
     this.textColor,
@@ -22,6 +25,11 @@ class BasicAppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Use localized string if localizationKey is provided, otherwise use the title
+    final buttonText = localizationKey != null 
+        ? context.l10n(localizationKey!)
+        : title;
+        
     return LayoutBuilder(
       builder: (context, constraints) {
         double buttonWidth = width ?? constraints.maxWidth;
@@ -43,7 +51,7 @@ class BasicAppButton extends StatelessWidget {
               elevation: 0,
             ),
             child: Text(
-              title,
+              buttonText,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

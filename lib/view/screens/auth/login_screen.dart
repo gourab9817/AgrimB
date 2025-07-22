@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../widgets/auth/auth_header.dart';
 import '../../widgets/auth/email_input.dart';
 import '../../widgets/auth/password_input.dart';
@@ -64,9 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  const AuthHeader(
-                    title: 'Welcome Back!',
-                    subtitle: 'Sign in to continue to your account',
+                  AuthHeader(
+                    title: context.l10n('welcome_back'),
+                    subtitle: context.l10n('sign_in_to_continue'),
                   ),
                   EmailInput(controller: _emailController),
                   const SizedBox(height: 16),
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () => Navigator.pushNamed(context, AppRoutes.forgotPassword),
-                      child: const Text('Forgot Password?', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+                      child: Text(context.l10n('forgot_password'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -98,17 +99,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             }
                           },
-                    title: viewModel.isLoading ? 'Logging In...' : 'Login',
+                    title: viewModel.isLoading ? context.l10n('logging_in') : context.l10n('login'),
                   ),
                   const SizedBox(height: 16),
                   Row(
-                    children: const [
-                      Expanded(child: Divider()),
+                    children: [
+                      const Expanded(child: Divider()),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text('OR', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500)),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(context.l10n('or'), style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w500)),
                       ),
-                      Expanded(child: Divider()),
+                      const Expanded(child: Divider()),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       side: const BorderSide(color: AppColors.orange),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    child: const Text('Create Account', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold, fontSize: 16)),
+                    child: Text(context.l10n('create_account'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
                 ],
               ),

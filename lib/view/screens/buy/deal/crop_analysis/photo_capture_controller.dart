@@ -26,8 +26,17 @@ class PhotoCaptureController with ChangeNotifier {
   bool isLoading = false;
   String? errorMessage;
   
-  PhotoCaptureController() {
+  // Localization function
+  String Function(String)? _localize;
+  
+  PhotoCaptureController({String Function(String)? localize}) {
+    _localize = localize;
     // Don't initialize in constructor to avoid lifecycle issues
+  }
+  
+  // Helper method to get localized string
+  String _l10n(String key) {
+    return _localize?.call(key) ?? key;
   }
   
   Future<void> initializeController() async {
@@ -40,7 +49,7 @@ class PhotoCaptureController with ChangeNotifier {
       // Request camera permission
       final cameraPermissionStatus = await Permission.camera.request();
       if (cameraPermissionStatus.isDenied) {
-        setError("Camera permission is required");
+        setError(_l10n('camera_permission_required'));
         setLoading(false);
         return;
       }
@@ -48,7 +57,7 @@ class PhotoCaptureController with ChangeNotifier {
       // Initialize available cameras
       cameras = await availableCameras();
       if (cameras.isEmpty) {
-        setError("No camera found");
+        setError(_l10n('no_camera_found'));
         setLoading(false);
         return;
       }
@@ -58,7 +67,7 @@ class PhotoCaptureController with ChangeNotifier {
       setLoading(false);
     } catch (e) {
       if (!isDisposed) {
-        setError("Failed to initialize camera: $e");
+        setError(_l10n('failed_to_initialize_camera') + e.toString());
         setLoading(false);
       }
     }
@@ -87,7 +96,7 @@ class PhotoCaptureController with ChangeNotifier {
       }
     } catch (e) {
       if (!isDisposed) {
-        setError("Failed to initialize camera: $e");
+        setError(_l10n('failed_to_initialize_camera') + e.toString());
       }
     }
   }
@@ -122,7 +131,7 @@ class PhotoCaptureController with ChangeNotifier {
       }
     } catch (e) {
       if (!isDisposed) {
-        setError("Failed to switch camera: $e");
+        setError(_l10n('failed_to_initialize_camera') + e.toString());
       }
     } finally {
       if (!isDisposed) {
@@ -134,7 +143,7 @@ class PhotoCaptureController with ChangeNotifier {
   Future<void> captureImage() async {
     if (isDisposed) return;
     if (cameraController == null || !cameraController!.value.isInitialized) {
-      setError("Camera not initialized");
+      setError(_l10n('camera_not_initialized'));
       return;
     }
     
@@ -149,7 +158,7 @@ class PhotoCaptureController with ChangeNotifier {
       
       // Verify the file exists
       if (!await imageFile.exists()) {
-        setError("Failed to save captured image");
+        setError(_l10n('failed_to_save_captured_image'));
         setLoading(false);
         return;
       }
@@ -161,7 +170,7 @@ class PhotoCaptureController with ChangeNotifier {
       }
     } catch (e) {
       if (!isDisposed) {
-        setError("Failed to capture image: $e");
+        setError(_l10n('failed_to_capture_image') + e.toString());
         setLoading(false);
       }
     }
@@ -178,7 +187,7 @@ class PhotoCaptureController with ChangeNotifier {
         // Fall back to storage permission for older API levels
         final oldStoragePermissionStatus = await Permission.storage.request();
         if (oldStoragePermissionStatus.isDenied) {
-          setError("Storage permission is required");
+          setError(_l10n('storage_permission_required'));
           setLoading(false);
           return;
         }
@@ -199,7 +208,7 @@ class PhotoCaptureController with ChangeNotifier {
         
         // Verify the file exists
         if (!await imageFile.exists()) {
-          setError("Failed to load gallery image");
+          setError(_l10n('failed_to_load_gallery_image'));
           setLoading(false);
           return;
         }
@@ -218,7 +227,7 @@ class PhotoCaptureController with ChangeNotifier {
       }
     } catch (e) {
       if (!isDisposed) {
-        setError("Failed to pick image: $e");
+        setError(_l10n('failed_to_pick_image') + e.toString());
         setLoading(false);
       }
     }
@@ -226,7 +235,7 @@ class PhotoCaptureController with ChangeNotifier {
   
   Future<String> saveFinalImage() async {
     if (capturedImage == null) {
-      throw Exception("No image to save");
+      throw Exception(_l10n('no_image_to_save'));
     }
     
     try {
@@ -243,18 +252,18 @@ class PhotoCaptureController with ChangeNotifier {
       
       // Verify the new file exists
       if (!await newImage.exists()) {
-        throw Exception("Failed to create a copy of the image file");
+        throw Exception(_l10n('failed_to_create_image_copy'));
       }
       
       return newImage.path;
     } catch (e) {
-      throw Exception("Failed to save image: $e");
+      throw Exception(_l10n('failed_to_save_image') + e.toString());
     }
   }
   
   Future<String> saveImageLocally() async {
     if (capturedImage == null) {
-      throw Exception("No image to save");
+      throw Exception(_l10n('no_image_to_save'));
     }
     
     try {
@@ -262,16 +271,16 @@ class PhotoCaptureController with ChangeNotifier {
       if (await capturedImage!.exists()) {
         return capturedImage!.path;
       } else {
-        throw Exception("Image file doesn't exist");
+        throw Exception(_l10n('image_file_not_exist'));
       }
     } catch (e) {
-      throw Exception("Failed to save image locally: $e");
+      throw Exception(_l10n('failed_to_save_image_locally') + e.toString());
     }
   }
   
   Future<String> uploadImageToFirebase() async {
     if (capturedImage == null) {
-      throw Exception("No image to upload");
+      throw Exception(_l10n('no_image_to_upload'));
     }
     
     if (isDisposed) return "";
@@ -281,7 +290,7 @@ class PhotoCaptureController with ChangeNotifier {
     try {
       // Verify file exists before upload
       if (!await capturedImage!.exists()) {
-        throw Exception("Image file doesn't exist");
+        throw Exception(_l10n('image_file_not_exist'));
       }
       
       // Create a unique filename
@@ -314,7 +323,7 @@ class PhotoCaptureController with ChangeNotifier {
       final TaskSnapshot taskSnapshot = await uploadTask.timeout(
         const Duration(minutes: 2),
         onTimeout: () {
-          throw Exception("Upload timed out after 2 minutes");
+          throw Exception(_l10n('upload_timed_out'));
         },
       );
       
@@ -332,10 +341,10 @@ class PhotoCaptureController with ChangeNotifier {
     } catch (e) {
       print("Firebase upload error: $e");
       if (!isDisposed) {
-        setError("Failed to upload image: $e");
+        setError(_l10n('failed_to_upload_image') + e.toString());
         setLoading(false);
       }
-      throw Exception("Failed to upload image: $e");
+      throw Exception(_l10n('failed_to_upload_image') + e.toString());
     }
   }
   

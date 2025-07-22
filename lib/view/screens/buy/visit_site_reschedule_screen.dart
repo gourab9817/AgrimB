@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_text_style.dart';
 import '../../../core/constants/app_spacing.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../view_model/buy/visit_site_reschedule_view_model.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../view_model/notification/notification_view_model.dart';
@@ -74,7 +75,7 @@ class _VisitSiteRescheduleBodyState extends State<_VisitSiteRescheduleBody> {
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Reschedule Visit', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+        title: Text(context.l10n('reschedule_visit'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -97,17 +98,17 @@ class _VisitSiteRescheduleBodyState extends State<_VisitSiteRescheduleBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildLabel('New Visit Date & Time :'),
+                  _buildLabel(context.l10n('new_visit_date_time')),
                   _buildInputField(
                     controller: _dateTimeController,
-                    hint: 'Select date & time',
+                    hint: context.l10n('select_date_time'),
                     readOnly: true,
                     onTap: _pickDateTime,
                     suffixIcon: Icons.calendar_today,
                   ),
                   const SizedBox(height: 16),
-                  _buildLabel('New Meeting Location :'),
-                  _buildInputField(controller: _locationController, hint: 'Enter new location'),
+                  _buildLabel(context.l10n('new_meeting_location')),
+                  _buildInputField(controller: _locationController, hint: context.l10n('enter_new_location')),
                   const SizedBox(height: 28),
                   SizedBox(
                     width: double.infinity,
@@ -125,13 +126,13 @@ class _VisitSiteRescheduleBodyState extends State<_VisitSiteRescheduleBody> {
                           : () async {
                               if (_selectedDateTime == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Please select new visit date & time'), backgroundColor: AppColors.error),
+                                  SnackBar(content: Text(context.l10n('please_select_new_visit_datetime')), backgroundColor: AppColors.error),
                                 );
                                 return;
                               }
                               if (_locationController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Please enter the new meeting point'), backgroundColor: AppColors.error),
+                                  SnackBar(content: Text(context.l10n('please_enter_new_meeting_point')), backgroundColor: AppColors.error),
                                 );
                                 return;
                               }
@@ -154,7 +155,7 @@ class _VisitSiteRescheduleBodyState extends State<_VisitSiteRescheduleBody> {
                             },
                       child: viewModel.isLoading
                           ? const CircularProgressIndicator(color: AppColors.white)
-                          : Text('Update Visit', style: AppTextStyle.bold16.copyWith(color: AppColors.white)),
+                          : Text(context.l10n('update_visit'), style: AppTextStyle.bold16.copyWith(color: AppColors.white)),
                     ),
                   ),
                 ],

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../widgets/auth/app_button.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../routes/app_routes.dart';
@@ -58,7 +59,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         timer.cancel();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Email verified successfully!'), backgroundColor: Colors.green, duration: Duration(seconds: 2)),
+            SnackBar(content: Text(context.l10n('email_verified_successfully')), backgroundColor: Colors.green, duration: const Duration(seconds: 2)),
           );
           Future.delayed(const Duration(milliseconds: 100), () {
             if (mounted) {
@@ -77,13 +78,13 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
   Future<void> _manuallyCheckVerification() async {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Checking verification status...'), duration: Duration(seconds: 1)),
+      SnackBar(content: Text(context.l10n('checking_verification_status')), duration: const Duration(seconds: 1)),
     );
     final isVerified = await _userRepository.reloadUser();
     if (isVerified) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email verified successfully!'), backgroundColor: Colors.green, duration: Duration(seconds: 2)),
+          SnackBar(content: Text(context.l10n('email_verified_successfully')), backgroundColor: Colors.green, duration: const Duration(seconds: 2)),
         );
         Future.delayed(const Duration(milliseconds: 1500), () {
           if (mounted) {
@@ -94,7 +95,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email not verified yet. Please check your inbox.'), backgroundColor: Colors.orange),
+          SnackBar(content: Text(context.l10n('email_not_verified')), backgroundColor: Colors.orange),
         );
       }
     }
@@ -105,7 +106,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     await _userRepository.sendEmailVerification();
     _startTimer();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Verification email sent'), backgroundColor: Colors.green),
+      SnackBar(content: Text(context.l10n('verification_email_sent_success')), backgroundColor: Colors.green),
     );
   }
 
@@ -123,7 +124,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Email Verification', style: TextStyle(color: AppColors.brown)),
+        title: Text(context.l10n('email_verification'), style: const TextStyle(color: AppColors.brown)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () async {
@@ -143,14 +144,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             children: [
               const Icon(Icons.mark_email_unread_outlined, size: 100, color: AppColors.orange),
               const SizedBox(height: 24),
-              const Text(
-                'Verify Your Email',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.brown),
+              Text(
+                context.l10n('verify_your_email'),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.brown),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               Text(
-                'We\'ve sent a verification email.\nPlease check your inbox and click the link to verify your account.',
+                context.l10n('verification_email_sent'),
                 style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
                 textAlign: TextAlign.center,
               ),
@@ -168,14 +169,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text('Checking verification status...', style: TextStyle(color: Colors.grey.shade700)),
+                    Text(context.l10n('checking_verification'), style: TextStyle(color: Colors.grey.shade700)),
                   ],
                 ),
               const SizedBox(height: 24),
               ElevatedButton.icon(
                 onPressed: _manuallyCheckVerification,
                 icon: const Icon(Icons.refresh, color: Colors.white),
-                label: const Text('I\'ve verified my email'),
+                label: Text(context.l10n('ive_verified_email')),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.brown,
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -185,7 +186,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               const SizedBox(height: 24),
               BasicAppButton(
                 onPressed: _canResend ? _resendVerificationEmail : null,
-                title: _canResend ? 'Resend Verification Email' : 'Resend in $_timeLeft seconds',
+                title: _canResend ? context.l10n('resend_verification_email') : context.l10n('resend_in_seconds').replaceAll('{seconds}', _timeLeft.toString()),
                 backgroundColor: _canResend ? null : Colors.grey,
               ),
               const SizedBox(height: 16),
@@ -196,7 +197,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     Navigator.pushReplacementNamed(context, AppRoutes.login);
                   }
                 },
-                child: const Text('Back to Login', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+                child: Text(context.l10n('back_to_login'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
               ),
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../view_model/profile/profile_view_model.dart';
 import '../../../view_model/notification/notification_view_model.dart';
 import '../../../routes/app_routes.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   const DashboardAppBar({super.key});
@@ -19,16 +20,34 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
     final userName = profileViewModel.user?.name ?? 'Farmer';
     
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 253, 248, 248),
       elevation: 0,
       automaticallyImplyLeading: false,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 252, 190, 96), // Pure orange (left)
+              Color.fromARGB(255, 247, 181, 82), // Light orange
+              Color.fromARGB(255, 255, 194, 102), // Lighter orange
+              Color.fromARGB(255, 255, 195, 106), // Very light orange (right)
+            ],
+          ),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(MediaQuery.of(context).size.width * 0.08), // More curved radius
+            bottomRight: Radius.circular(MediaQuery.of(context).size.width * 0.08), // More curved radius
+          ),
+        ),
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Namaste $userName',
+            '${context.l10n('namaste')} $userName',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: const Color(0xFF8B5C2A),
+                  color: const Color.fromARGB(255, 96, 63, 28),
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
                 ),
@@ -38,7 +57,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
               Text(
                 getFormattedDate(),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey[700],
+                      color: const Color.fromARGB(255, 61, 41, 9),
                       fontSize: 18,
                     ),
               ),
@@ -53,29 +72,6 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(top: 18.0, right: 8.0),
           child: Row(
             children: [
-              // Language selector
-              Image.asset(
-                'assets/images/languagechange.png',
-                width: 32,
-                height: 32,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(width: 12),
-              // Search icon
-              Material(
-                color: Colors.orange,
-                shape: const CircleBorder(),
-                elevation: 2,
-                child: InkWell(
-                  customBorder: const CircleBorder(),
-                  onTap: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Icon(Icons.search, color: Colors.white, size: 28),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
               // Notification icon with badge
               Consumer<NotificationViewModel>(
                 builder: (context, notificationViewModel, child) {

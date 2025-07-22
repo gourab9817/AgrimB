@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../widgets/auth/auth_header.dart';
 import '../../widgets/auth/email_input.dart';
 import '../../widgets/auth/error_dialog.dart';
@@ -46,8 +47,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           barrierDismissible: false,
           builder: (context) => AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            title: const Text('Email Sent', style: TextStyle(color: AppColors.brown, fontWeight: FontWeight.bold)),
-            content: const Text('Password reset instructions have been sent to your email.'),
+            title: Text(context.l10n('email_sent'), style: const TextStyle(color: AppColors.brown, fontWeight: FontWeight.bold)),
+            content: Text(context.l10n('password_reset_instructions')),
             actions: [
               TextButton(
                 onPressed: () {
@@ -55,7 +56,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Navigator.of(context).pop();
                   Navigator.pushReplacementNamed(context, AppRoutes.login);
                 },
-                child: const Text('Back to Login', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+                child: Text(context.l10n('back_to_login'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -82,9 +83,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const AuthHeader(
-                    title: 'Forgot Password',
-                    subtitle: 'Enter your email to reset your password',
+                  AuthHeader(
+                    title: context.l10n('forgot_password_title'),
+                    subtitle: context.l10n('enter_email_to_reset'),
                   ),
                   EmailInput(controller: _emailController),
                   const SizedBox(height: 32),
@@ -96,12 +97,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               await viewModel.resetPassword(_emailController.text.trim());
                             }
                           },
-                    title: viewModel.isLoading ? 'Sending...' : 'Reset Password',
+                    title: viewModel.isLoading ? context.l10n('sending') : context.l10n('reset_password'),
                   ),
                   const SizedBox(height: 16),
                   TextButton(
                     onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
-                    child: const Text('Back to Login', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+                    child: Text(context.l10n('back_to_login'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),

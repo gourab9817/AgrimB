@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_text_style.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_assets.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class FeatureCard extends StatelessWidget {
   final VoidCallback? onTap;
@@ -76,7 +77,7 @@ class FeatureCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Buy Crop',
+                        context.l10n('buy_crop'),
                         style: AppTextStyle.bold24.copyWith(
                           color: AppColors.brown,
                           shadows: [
@@ -90,7 +91,7 @@ class FeatureCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'List your crops, set your price, and\nstart sell your price.',
+                        context.l10n('list_crops_set_price_description'),
                         style: AppTextStyle.medium16.copyWith(
                           color: AppColors.brown.withOpacity(0.92),
                           shadows: [
@@ -128,9 +129,9 @@ class FeatureCard extends StatelessWidget {
                                 elevation: 0,
                               ),
                               onPressed: onTap,
-                              child: const Text(
-                                'Buy Crop',
-                                style: TextStyle(
+                              child: Text(
+                                context.l10n('buy_crop'),
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,

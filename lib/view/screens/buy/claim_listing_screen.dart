@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_text_style.dart';
 import '../../../core/constants/app_spacing.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../data/models/listing_model.dart';
 import '../../widgets/appbar/navbar.dart';
 import '../../../routes/app_routes.dart';
@@ -21,7 +22,7 @@ class ClaimListingScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Claim listing', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+        title: Text(context.l10n('claim_listing'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.l),
@@ -82,8 +83,8 @@ class ClaimListingScreen extends StatelessWidget {
                             children: [
                               const Icon(Icons.inventory_2, color: AppColors.grey, size: 20),
                               const SizedBox(width: 6),
-                              Text('Quantity : ', style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
-                              Text('${listing.quantity} quintals', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
+                              Text(context.l10n('quantity'), style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
+                              Text('${listing.quantity} ${context.l10n('quintals')}', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -91,7 +92,7 @@ class ClaimListingScreen extends StatelessWidget {
                             children: [
                               const Icon(Icons.grade, color: AppColors.orange, size: 20),
                               const SizedBox(width: 6),
-                              Text('Quality : ', style: AppTextStyle.medium14.copyWith(color: AppColors.orange)),
+                              Text(context.l10n('quality'), style: AppTextStyle.medium14.copyWith(color: AppColors.orange)),
                               Text(listing.quality, style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                             ],
                           ),
@@ -100,8 +101,8 @@ class ClaimListingScreen extends StatelessWidget {
                             children: [
                               const Icon(Icons.attach_money, color: AppColors.success, size: 20),
                               const SizedBox(width: 6),
-                              Text('Offered Price: ', style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
-                              Text('₹${listing.price}/quintal', style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
+                              Text(context.l10n('offered_price'), style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
+                              Text(context.l10n('price_per_quintal').replaceAll('{price}', listing.price.toString()), style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -109,7 +110,7 @@ class ClaimListingScreen extends StatelessWidget {
                             children: [
                               const Icon(Icons.build, color: AppColors.grey, size: 20),
                               const SizedBox(width: 6),
-                              Text('Quality indicator: ', style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
+                              Text(context.l10n('quality_indicator'), style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
                               Text(listing.qualityIndicator, style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                             ],
                           ),
@@ -120,7 +121,7 @@ class ClaimListingScreen extends StatelessWidget {
                               children: [
                                 const Icon(Icons.description, color: AppColors.brown, size: 20),
                                 const SizedBox(width: 6),
-                                Text('Description: ', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
+                                Text(context.l10n('description'), style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                                 Expanded(
                                   child: Text(
                                     listing.description,
@@ -137,7 +138,7 @@ class ClaimListingScreen extends StatelessWidget {
                           Row(
                             children: [
                               const SizedBox(width: 2),
-                              Text('Listing Date : ', style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
+                              Text(context.l10n('listing_date'), style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
                               Text(listing.listingDate, style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
                             ],
                           ),
@@ -160,7 +161,7 @@ class ClaimListingScreen extends StatelessWidget {
                                   arguments: listing,
                                 );
                               },
-                              child: Text('Claim Listing', style: AppTextStyle.bold16.copyWith(color: AppColors.brown)),
+                              child: Text(context.l10n('claim_listing_button'), style: AppTextStyle.bold16.copyWith(color: AppColors.brown)),
                             ),
                           ),
                         ],

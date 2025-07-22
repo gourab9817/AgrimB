@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class PhotoViewScreen extends StatelessWidget {
   final String imagePath;
@@ -22,9 +23,9 @@ class PhotoViewScreen extends StatelessWidget {
           icon: const Icon(Icons.close, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(false),
         ),
-        title: const Text(
-          'Profile Picture',
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          context.l10n('profile_picture'),
+          style: const TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         actions: [
@@ -68,7 +69,7 @@ class PhotoViewScreen extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
-                  child: const Text('Cancel'),
+                  child: Text(context.l10n('cancel')),
                 ),
               ),
               const SizedBox(width: 16),
@@ -83,7 +84,7 @@ class PhotoViewScreen extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
-                  child: const Text('Use This Photo'),
+                  child: Text(context.l10n('use_this_photo')),
                 ),
               ),
             ],

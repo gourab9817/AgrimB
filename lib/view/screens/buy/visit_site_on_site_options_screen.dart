@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_text_style.dart';
 import '../../../core/constants/app_assets.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../view/widgets/Button/app_button.dart';
 import '../../../view/widgets/popup/custom_notification.dart';
 import '../../../routes/app_routes.dart';
@@ -25,7 +26,7 @@ class VisitSiteOnSiteOptionsScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('On Site Actions', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+        title: Text(context.l10n('on_site_actions'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
       ),
       body: Container(
         width: double.infinity,
@@ -49,7 +50,7 @@ class VisitSiteOnSiteOptionsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'What would you like to do on site?',
+                    context.l10n('what_would_you_like_to_do_on_site'),
                     style: AppTextStyle.bold24.copyWith(color: AppColors.brown),
                     textAlign: TextAlign.center,
                   ),
@@ -64,7 +65,7 @@ class VisitSiteOnSiteOptionsScreen extends StatelessWidget {
                             children: [
                               _ResponsiveOptionCard(
                                 imagePath: AppAssets.Feature_pred,
-                                label: "Crop Analysis & Price Predection",
+                                label: context.l10n('crop_analysis_price_prediction'),
                                 color: AppColors.orange,
                                 cardSize: cardSize,
                                 onTap: () {
@@ -93,12 +94,12 @@ class VisitSiteOnSiteOptionsScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('How to take a good crop photo:', style: AppTextStyle.bold16.copyWith(color: AppColors.brown)),
+                                    Text(context.l10n('how_to_take_good_crop_photo'), style: AppTextStyle.bold16.copyWith(color: AppColors.brown)),
                                     const SizedBox(height: 10),
-                                    _instructionRow('Keep the camera at a proper distance from the crop.'),
-                                    _instructionRow('Ensure good lighting for a clear photo.'),
-                                    _instructionRow('Once you clicked the photo, check for the analysis.'),
-                                    _instructionRow('Once you are done with the analysis, you will get to know about the detailed report of the crop.'),
+                                    _instructionRow(context.l10n('camera_distance_instruction')),
+                                    _instructionRow(context.l10n('lighting_instruction')),
+                                    _instructionRow(context.l10n('check_analysis_instruction')),
+                                    _instructionRow(context.l10n('detailed_report_instruction')),
                                   ],
                                 ),
                               ),
@@ -112,7 +113,7 @@ class VisitSiteOnSiteOptionsScreen extends StatelessWidget {
                                 minWidth: 140,
                               ),
                               child: BasicAppButton(
-                                title: 'Next',
+                                title: context.l10n('next'),
                                 onPressed: () {
                                   Navigator.push(
                                     context,

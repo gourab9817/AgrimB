@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/constants/app_text_style.dart';
 import '../../../../routes/app_routes.dart';
+import '../../../../core/localization/localization_extension.dart';
 import 'dart:async';
 
 class DealCompletedSplashScreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _DealCompletedSplashScreenState extends State<DealCompletedSplashScreen> {
             ),
             const SizedBox(height: 32),
             Text(
-              'Deal\nCompleted\nSuccessfully\nBuyed',
+              context.l10n('deal_completed_successfully'),
               textAlign: TextAlign.center,
               style: AppTextStyle.bold20.copyWith(color: AppColors.brown, height: 1.25),
             ),

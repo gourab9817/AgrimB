@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
 import 'package:agrimb/core/constants/app_text_style.dart';
+import 'package:agrimb/core/localization/localization_extension.dart';
 import './photo_capture_controller.dart';
 import '../final_deal_screen.dart';
 import '../../../../../data/models/crop_analysis_model.dart';
@@ -44,10 +45,10 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
             icon: const Icon(Icons.arrow_back, color: AppColors.brown),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text('Verify Image', style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
+          title: Text(context.l10n('verify_image'), style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
         ),
         body: Center(
-          child: Text('No image available', style: AppTextStyle.body),
+          child: Text(context.l10n('no_image_available'), style: AppTextStyle.body),
         ),
       );
     }
@@ -62,7 +63,7 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text('Verify Image', style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
+        title: Text(context.l10n('verify_image'), style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
         centerTitle: true,
       ),
       body: Container(
@@ -129,7 +130,7 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
                           children: [
                             IconButton(
                               icon: Icon(_showResult ? Icons.visibility : Icons.visibility_off, color: AppColors.brown, size: 28),
-                              tooltip: _showResult ? 'Hide Result' : 'Show Result',
+                              tooltip: _showResult ? context.l10n('hide_result') : context.l10n('show_result'),
                               onPressed: () {
                                 setState(() {
                                   _showResult = !_showResult;
@@ -138,7 +139,7 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
                               splashRadius: 24,
                             ),
                             Text(
-                              _showResult ? 'Click to hide the analysis' : 'Click here to see the analysis',
+                              _showResult ? context.l10n('click_to_hide_analysis') : context.l10n('click_to_see_analysis'),
                               style: AppTextStyle.medium14.copyWith(color: AppColors.brown.withOpacity(0.7)),
                             ),
                           ],
@@ -184,15 +185,15 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
                   children: [
                                               const Icon(Icons.check_circle, color: AppColors.success, size: 28),
                                               SizedBox(width: 12),
-                                              Text('Crop Analysis Results', style: AppTextStyle.bold18.copyWith(color: AppColors.success)),
+                                              Text(context.l10n('crop_analysis_results'), style: AppTextStyle.bold18.copyWith(color: AppColors.success)),
                                             ],
                                           ),
                                           const SizedBox(height: 18),
-                                          _resultRow('Total Seeds', widget.apiResult.totalSeeds, AppColors.brown, Icons.grain),
+                                          _resultRow(context.l10n('total_seeds'), widget.apiResult.totalSeeds, AppColors.brown, Icons.grain),
                                           const SizedBox(height: 8),
-                                          _resultRow('Healthy Seeds', widget.apiResult.healthySeeds, AppColors.success, Icons.eco),
+                                          _resultRow(context.l10n('healthy_seeds'), widget.apiResult.healthySeeds, AppColors.success, Icons.eco),
                                           const SizedBox(height: 8),
-                                          _resultRow('Defective Seeds', widget.apiResult.defectiveSeeds, AppColors.error, Icons.warning_amber_rounded),
+                                          _resultRow(context.l10n('defective_seeds'), widget.apiResult.defectiveSeeds, AppColors.error, Icons.warning_amber_rounded),
                                         ],
                                       )
                                     : Row(
@@ -201,7 +202,7 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
                                           SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                                              widget.apiResult.errorCode?.userFriendlyMessage ?? widget.apiResult.error ?? 'Unknown error',
+                                              widget.apiResult.errorCode?.userFriendlyMessage ?? widget.apiResult.error ?? context.l10n('unknown_error'),
                                               style: AppTextStyle.error,
                       ),
                     ),
@@ -224,7 +225,7 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                              'Please verify the photo and results before proceeding.',
+                              context.l10n('verify_photo_results'),
                               style: AppTextStyle.body,
                     textAlign: TextAlign.center,
                   ),
@@ -240,7 +241,7 @@ class _PhotoVerificationScreenState extends State<PhotoVerificationScreen> {
                           height: 56,
                           child: ElevatedButton.icon(
                             icon: Icon(Icons.arrow_forward, color: Colors.white),
-                            label: Text('Next', style: AppTextStyle.button),
+                            label: Text(context.l10n('next'), style: AppTextStyle.button),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.orange,
                     shape: RoundedRectangleBorder(

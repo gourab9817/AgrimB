@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_text_style.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class MandiBhavCard extends StatelessWidget {
   final List<Map<String, String>> mandiData;
@@ -23,14 +24,14 @@ class MandiBhavCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('MANDI BHAV', style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
+                  Text(context.l10n('mandi_bhav'), style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
                   const SizedBox(height: 2),
-                  Text('Mandi Bhav of popular commodities', style: AppTextStyle.medium14.copyWith(color: AppColors.brown.withOpacity(0.7))),
+                  Text(context.l10n('mandi_bhav_subtitle'), style: AppTextStyle.medium14.copyWith(color: AppColors.brown.withOpacity(0.7))),
                 ],
               ),
               GestureDetector(
                 onTap: () {},
-                child: Text('View all', style: AppTextStyle.medium14.copyWith(color: AppColors.brown, decoration: TextDecoration.underline)),
+                child: Text(context.l10n('view_all'), style: AppTextStyle.medium14.copyWith(color: AppColors.brown, decoration: TextDecoration.underline)),
               ),
             ],
           ),
@@ -73,7 +74,7 @@ class MandiBhavCard extends StatelessWidget {
                             children: [
                               const Icon(Icons.attach_money, color: AppColors.brown, size: 18),
                               const SizedBox(width: 2),
-                              Text('Price: ', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
+                              Text(context.l10n('price'), style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                               Text(item['price'] ?? '', style: AppTextStyle.bold16.copyWith(color: AppColors.error)),
                             ],
                           ),

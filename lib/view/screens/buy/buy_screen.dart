@@ -4,6 +4,7 @@ import '../../widgets/buy/listing_card.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../routes/app_routes.dart';
 import '../../../view/widgets/appbar/navbar.dart';
 import '../../../view_model/buy/buy_view_model.dart';
@@ -71,14 +72,14 @@ class _BuyScreenBody extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: const Text('Buy', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
-          bottom: const TabBar(
+          title: Text(context.l10n('buy'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+          bottom: TabBar(
             labelColor: AppColors.orange,
             unselectedLabelColor: AppColors.brown,
             indicatorColor: AppColors.orange,
             tabs: [
-              Tab(text: 'Listed Crops'),
-              Tab(text: 'Claimed Crops'),
+              Tab(text: context.l10n('listed_crops')),
+              Tab(text: context.l10n('claimed_crops')),
             ],
           ),
         ),
@@ -96,7 +97,7 @@ class _BuyScreenBody extends StatelessWidget {
                 child: TextField(
                   onChanged: viewModel.setSearchQuery,
                   decoration: InputDecoration(
-                    hintText: 'Search crops...',
+                    hintText: context.l10n('search_crops'),
                     prefixIcon: const Icon(Icons.search, color: AppColors.brown),
                     suffixIcon: viewModel.searchQuery.isNotEmpty
                         ? IconButton(
@@ -114,11 +115,11 @@ class _BuyScreenBody extends StatelessWidget {
               Row(
                 children: [
                   _FilterChip(
-                    label: 'Types',
+                    label: context.l10n('types'),
                     selected: viewModel.selectedType.isNotEmpty,
                     onTap: () => _showFilterDialog(
                       context,
-                      'Select Type',
+                      context.l10n('select_type'),
                       viewModel.uniqueTypes,
                       viewModel.selectedType,
                       (type) => viewModel.setTypeFilter(type),
@@ -126,11 +127,11 @@ class _BuyScreenBody extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   _FilterChip(
-                    label: 'Location',
+                    label: context.l10n('location'),
                     selected: viewModel.selectedLocation.isNotEmpty,
                     onTap: () => _showFilterDialog(
                       context,
-                      'Select Location',
+                      context.l10n('select_location'),
                       viewModel.uniqueLocations,
                       viewModel.selectedLocation,
                       (location) => viewModel.setLocationFilter(location),
@@ -140,7 +141,7 @@ class _BuyScreenBody extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: _FilterChip(
-                        label: 'Clear',
+                        label: context.l10n('clear'),
                         selected: false,
                         onTap: viewModel.clearFilters,
                       ),
@@ -165,7 +166,7 @@ class _BuyScreenBody extends StatelessWidget {
                               errorBuilder: (context, error, stackTrace) => const Icon(Icons.image_not_supported, size: 80, color: Colors.grey),
                             ),
                             const SizedBox(height: 12),
-                            const Text('No listings found', style: TextStyle(color: AppColors.brown)),
+                            Text(context.l10n('no_listings_found'), style: const TextStyle(color: AppColors.brown)),
                           ],
                         ),
                       );
@@ -226,7 +227,7 @@ class _BuyScreenBody extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                                  child: Text('Visit Pending', style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
+                                  child: Text(context.l10n('visit_pending'), style: AppTextStyle.bold18.copyWith(color: AppColors.brown)),
                                 ),
                                 ListView.builder(
                                   shrinkWrap: true,
@@ -256,7 +257,7 @@ class _BuyScreenBody extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                                  child: Text('Visit Cancelled Crops', style: AppTextStyle.bold18.copyWith(color: AppColors.error)),
+                                  child: Text(context.l10n('visit_cancelled_crops'), style: AppTextStyle.bold18.copyWith(color: AppColors.error)),
                                 ),
                                 ListView.builder(
                                   shrinkWrap: true,
@@ -280,7 +281,7 @@ class _BuyScreenBody extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                                  child: Text('Visit and Deal Completed', style: AppTextStyle.bold18.copyWith(color: AppColors.success)),
+                                  child: Text(context.l10n('visit_and_deal_completed'), style: AppTextStyle.bold18.copyWith(color: AppColors.success)),
                                 ),
                                 ListView.builder(
                                   shrinkWrap: true,
@@ -352,7 +353,7 @@ class _BuyScreenBody extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(context.l10n('cancel')),
           ),
         ],
       ),

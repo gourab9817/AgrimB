@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:agrimb/core/constants/app_assets.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
+import 'package:agrimb/core/localization/app_localizations.dart';
+import 'package:agrimb/core/localization/localization_extension.dart';
 import 'package:agrimb/view_model/splash/splash_view_model.dart';
+import 'package:agrimb/routes/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -32,11 +35,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _animationController.forward();
 
-    // Initialize app after a short delay
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (mounted) {
-        final splashViewModel = Provider.of<SplashViewModel>(context, listen: false);
-        splashViewModel.initializeApp(context);
+    // Show language selection after animation completes
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed && mounted) {
+        Navigator.of(context).pushReplacementNamed(AppRoutes.languageSelection);
       }
     });
   }
@@ -93,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   const SizedBox(height: 24),
                   // App Name
                   Text(
-                    'AGRIM BUYER',
+                    context.l10n('agrim_buyer'),
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -111,7 +113,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   const SizedBox(height: 16),
                   // Tagline
                   Text(
-                    'Your Agricultural Marketplace',
+                    context.l10n('your_agricultural_marketplace'),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 16,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../routes/app_routes.dart';
 import '../../widgets/popup/custom_notification.dart';
 
@@ -33,7 +34,7 @@ class CustomBottomNavBar extends StatelessWidget {
           _buildNavItem(
             context: context,
             index: 0,
-            label: 'Home',
+            label: context.l10n('home'),
             assetPath: AppAssets.homeicon,
             isSelected: currentIndex == 0,
             itemWidth: itemWidth,
@@ -42,7 +43,7 @@ class CustomBottomNavBar extends StatelessWidget {
           _buildNavItem(
             context: context,
             index: 1,
-            label: 'Buy',
+            label: context.l10n('buy'),
             assetPath: AppAssets.buyicon,
             isSelected: currentIndex == 1,
             itemWidth: itemWidth,
@@ -51,7 +52,7 @@ class CustomBottomNavBar extends StatelessWidget {
           _buildNavItem(
             context: context,
             index: 2,
-            label: 'Calls',
+            label: context.l10n('calls'),
             assetPath: AppAssets.phone,
             isSelected: currentIndex == 2,
             itemWidth: itemWidth,
@@ -60,7 +61,7 @@ class CustomBottomNavBar extends StatelessWidget {
           _buildNavItem(
             context: context,
             index: 3,
-            label: 'Profile',
+            label: context.l10n('profile'),
             assetPath: AppAssets.userprofileicon,
             isSelected: currentIndex == 3,
             itemWidth: itemWidth,
@@ -141,7 +142,7 @@ class CustomBottomNavBar extends StatelessWidget {
       case 2:
         CustomNotification.showComingSoon(
           context: context,
-          message: 'Calls feature is coming soon!',
+          message: context.l10n('calls_feature_coming_soon'),
         );
         break;
       case 3:

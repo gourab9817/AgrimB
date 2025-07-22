@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_text_style.dart';
 import '../../../core/constants/app_spacing.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../view/widgets/appbar/navbar.dart';
 import '../../../view_model/buy/visit_site_view_model.dart';
 import 'visit_site_reschedule_screen.dart';
@@ -80,7 +81,7 @@ class _VisitSiteBody extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: AppColors.brown),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Visit Site', style: TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
+        title: Text(context.l10n('visit_site'), style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold)),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -172,28 +173,28 @@ class _VisitSiteDetails extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text('Quantity: ', style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
-                      Text('${crop['quantity'] ?? '-'} quintals', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
+                                Text(context.l10n('quantity'), style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
+                                Text('${crop['quantity'] ?? '-'} ${context.l10n('quintals')}', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                               ],
                             ),
                             const SizedBox(height: 4),
                             Row(
                               children: [
-                                Text('Agreed Price: ', style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
-                      Text('₹${crop['price'] ?? '-'} /quintal', style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
+                                Text(context.l10n('agreed_price'), style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
+                                Text(context.l10n('price_per_quintal').replaceAll('{price}', (crop['price'] ?? '-').toString()), style: AppTextStyle.medium14.copyWith(color: AppColors.success)),
                               ],
                             ),
                             const SizedBox(height: 4),
                             Row(
                               children: [
-                                Text('Quality indicator: ', style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
+                                Text(context.l10n('quality_indicator'), style: AppTextStyle.medium14.copyWith(color: AppColors.grey)),
                       Text(crop['qualityIndicator'] ?? '-', style: AppTextStyle.medium14.copyWith(color: AppColors.brown)),
                               ],
                             ),
                             const SizedBox(height: 4),
                             Row(
                               children: [
-                                Text('Claimed Date: ', style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
+                                Text(context.l10n('claimed_date'), style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
                       Text((claimed['claimedDateTime'] ?? '').toString().split('T').first, style: AppTextStyle.medium14.copyWith(color: AppColors.error)),
                               ],
                             ),
@@ -210,19 +211,19 @@ class _VisitSiteDetails extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  _buildLabel('Visit Date & Time :'),
+                  _buildLabel(context.l10n('visit_date_time')),
         _buildReadOnlyField(claimed['visitDateTime'] ?? '-'),
                   const SizedBox(height: 12),
-        _buildLabel("Farmer's Contact :"),
+        _buildLabel(context.l10n('farmers_contact')),
         _buildReadOnlyField(farmer['phoneNumber'] ?? '-'),
                   const SizedBox(height: 12),
-        _buildLabel("Farmer's Name :"),
+        _buildLabel(context.l10n('farmers_name')),
         _buildReadOnlyField(farmer['name'] ?? '-'),
                   const SizedBox(height: 12),
-        _buildLabel("Farmer's Address :"),
+        _buildLabel(context.l10n('farmers_address')),
         _buildReadOnlyField(farmer['address'] ?? '-'),
                   const SizedBox(height: 12),
-        _buildLabel('Meeting Location :'),
+        _buildLabel(context.l10n('meeting_point')),
         _buildReadOnlyField(claimed['location'] ?? '-'),
                   const SizedBox(height: 24),
                   LayoutBuilder(
@@ -249,9 +250,9 @@ class _VisitSiteDetails extends StatelessWidget {
                                     context: context,
                                     builder: (ctx) => UniversalConfirmationDialog(
                                       animationAsset: AppAssets.exclamation,
-                                      message: 'Are you sure to reschedule the visit?',
-                                      yesText: 'Yes',
-                                      noText: 'No',
+                                      message: context.l10n('reschedule_visit_confirmation'),
+                                      yesText: context.l10n('yes'),
+                                      noText: context.l10n('no'),
                                       onYes: () {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -262,7 +263,7 @@ class _VisitSiteDetails extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Text('Visit Reschedule', style: AppTextStyle.bold18.copyWith(color: AppColors.orange)),
+                                child: Text(context.l10n('visit_reschedule'), style: AppTextStyle.bold18.copyWith(color: AppColors.orange)),
                               ),
                             ),
                             const SizedBox(width: 30),
@@ -284,7 +285,7 @@ class _VisitSiteDetails extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Text('I am on Site', style: AppTextStyle.bold18.copyWith(color: AppColors.white)),
+                                child: Text(context.l10n('i_am_on_site'), style: AppTextStyle.bold18.copyWith(color: AppColors.white)),
                               ),
                             ),
                           ],
@@ -310,9 +311,9 @@ class _VisitSiteDetails extends StatelessWidget {
                                     context: context,
                                     builder: (ctx) => UniversalConfirmationDialog(
                                       animationAsset: AppAssets.exclamation,
-                                      message: 'Are you sure to reschedule the visit?',
-                                      yesText: 'Yes',
-                                      noText: 'No',
+                                      message: context.l10n('reschedule_visit_confirmation'),
+                                      yesText: context.l10n('yes'),
+                                      noText: context.l10n('no'),
                                       onYes: () {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -323,7 +324,7 @@ class _VisitSiteDetails extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Text('Visit Reschedule', style: AppTextStyle.bold18.copyWith(color: AppColors.orange)),
+                                child: Text(context.l10n('visit_reschedule'), style: AppTextStyle.bold18.copyWith(color: AppColors.orange)),
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -345,7 +346,7 @@ class _VisitSiteDetails extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Text('I am on Site', style: AppTextStyle.bold18.copyWith(color: AppColors.white)),
+                                child: Text(context.l10n('i_am_on_site'), style: AppTextStyle.bold18.copyWith(color: AppColors.white)),
                         ),
                       ),
                     ],
@@ -372,9 +373,9 @@ class _VisitSiteDetails extends StatelessWidget {
                         context: context,
                         builder: (ctx) => UniversalConfirmationDialog(
                           animationAsset: AppAssets.exclamation,
-                          message: 'Are you really want to cancel your claim and visit?',
-                          yesText: 'Yes',
-                          noText: 'No',
+                          message: context.l10n('cancel_visit_confirmation'),
+                          yesText: context.l10n('yes'),
+                          noText: context.l10n('no'),
                           onYes: () async {
                             final claimedId = data['claimed']['id'];
                             final success = await viewModel.cancelVisit(claimedId);
@@ -394,7 +395,7 @@ class _VisitSiteDetails extends StatelessWidget {
                         ),
                       );
                     },
-              child: Text('Cancel visit', style: AppTextStyle.bold18.copyWith(color: AppColors.error)),
+              child: Text(context.l10n('cancel_visit'), style: AppTextStyle.bold18.copyWith(color: AppColors.error)),
             ),
           ),
         ),

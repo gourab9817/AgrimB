@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:agrimb/core/constants/app_text_style.dart';
 import 'package:agrimb/core/constants/app_spacing.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class BestDealsCard extends StatelessWidget {
   final String image;
   final String title;
+  final String? localizationKey;
   final VoidCallback? onTap;
   final double height;
+  
   const BestDealsCard({
     required this.image,
     required this.title,
+    this.localizationKey,
     this.onTap,
     this.height = AppSpacing.bestDealsHeight,
     super.key,
@@ -20,6 +24,11 @@ class BestDealsCard extends StatelessWidget {
     final textScaleFactor = MediaQuery.of(context).textScaleFactor;
     final double size = height * 0.7;
     final responsiveSize = size / (textScaleFactor > 1.3 ? textScaleFactor * 0.8 : 1.0);
+
+    // Use localized string if localizationKey is provided, otherwise use the title
+    final cardTitle = localizationKey != null 
+        ? context.l10n(localizationKey!)
+        : title;
 
     return InkWell(
       onTap: onTap,
@@ -52,7 +61,7 @@ class BestDealsCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0),
             width: responsiveSize + 20,
             child: Text(
-              title,
+              cardTitle,
               style: AppTextStyle.medium14.copyWith(color: Colors.orange),
               textAlign: TextAlign.center,
               maxLines: 1,

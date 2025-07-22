@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 
 class PhoneInput extends StatelessWidget {
   final void Function(String) onChanged;
@@ -9,6 +10,11 @@ class PhoneInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Use localized label text if it matches the default, otherwise use the provided label
+    final hintText = labelText == 'Phone Number' 
+        ? context.l10n('phone_number')
+        : labelText;
+
     return TextFormField(
       keyboardType: TextInputType.phone,
       inputFormatters: [
@@ -18,7 +24,7 @@ class PhoneInput extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.phone, color: Colors.grey),
         prefixText: '+91  ',
-        hintText: labelText,
+        hintText: hintText,
         filled: true,
         fillColor: const Color(0xFFF2F2F2),
         contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
@@ -29,10 +35,10 @@ class PhoneInput extends StatelessWidget {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your phone number';
+          return context.l10n('please_enter_phone_number');
         }
         if (value.length != 10) {
-          return 'Enter a valid 10-digit phone number';
+          return context.l10n('enter_valid_10_digit_phone');
         }
         return null;
       },

@@ -10,6 +10,7 @@ import 'package:agrimb/core/constants/app_text_style.dart';
 import 'package:agrimb/view/widgets/appbar/navbar.dart';
 import 'package:agrimb/view/widgets/Button/app_button.dart';
 import 'package:agrimb/view/widgets/popup/custom_notification.dart';
+import 'package:agrimb/core/localization/localization_extension.dart';
 
 import 'package:agrimb/view_model/profile/profile_view_model.dart';
 import 'package:agrimb/routes/app_routes.dart';
@@ -79,14 +80,14 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
             if (success && mounted) {
               CustomNotification.showSuccess(
                 context: context,
-                message: 'Your profile picture has been updated successfully.',
-                title: 'Profile Updated',
+                message: context.l10n('profile_updated_success'),
+                title: context.l10n('profile_updated'),
               );
             } else if (mounted) {
               CustomNotification.showError(
                 context: context,
-                message: 'Failed to update profile picture. Please try again.',
-                title: 'Update Failed',
+                message: context.l10n('profile_update_failed'),
+                title: context.l10n('update_failed'),
               );
             }
           }
@@ -96,8 +97,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       if (mounted) {
         CustomNotification.showError(
           context: context,
-          message: 'Error selecting image: $e',
-          title: 'Error',
+          message: context.l10n('error_selecting_image') + e.toString(),
+          title: context.l10n('error'),
         );
       }
     }
@@ -135,14 +136,14 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
             if (success && mounted) {
               CustomNotification.showSuccess(
                 context: context,
-                message: 'Your profile picture has been updated successfully.',
-                title: 'Profile Updated',
+                message: context.l10n('profile_updated_success'),
+                title: context.l10n('profile_updated'),
               );
             } else if (mounted) {
               CustomNotification.showError(
                 context: context,
-                message: 'Failed to update profile picture. Please try again.',
-                title: 'Update Failed',
+                message: context.l10n('profile_update_failed'),
+                title: context.l10n('update_failed'),
               );
             }
           }
@@ -152,8 +153,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       if (mounted) {
         CustomNotification.showError(
           context: context,
-          message: 'Error taking photo: $e',
-          title: 'Error',
+          message: context.l10n('error_taking_photo') + e.toString(),
+          title: context.l10n('error'),
         );
       }
     }
@@ -171,9 +172,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Change Profile Picture',
-              style: TextStyle(
+            Text(
+              context.l10n('change_profile_picture'),
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: AppColors.brown,
@@ -205,9 +206,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        'Camera',
-                        style: TextStyle(
+                      Text(
+                        context.l10n('camera'),
+                        style: const TextStyle(
                           fontSize: 14,
                           color: AppColors.brown,
                         ),
@@ -237,9 +238,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        'Gallery',
-                        style: TextStyle(
+                      Text(
+                        context.l10n('gallery'),
+                        style: const TextStyle(
                           fontSize: 14,
                           color: AppColors.brown,
                         ),
@@ -252,9 +253,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
             const SizedBox(height: 20),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text(
-                'Cancel',
-                style: TextStyle(
+              child: Text(
+                context.l10n('cancel'),
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.red,
                 ),
@@ -277,9 +278,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         elevation: 0,
         backgroundColor: AppColors.originalOrange,
         automaticallyImplyLeading: false, // Remove default back button
-        title: const Text(
-          'Profile',
-          style: TextStyle(
+        title: Text(
+          context.l10n('profile'),
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -412,7 +413,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           const SizedBox(height: 16),
           // Name
           Text(
-            viewModel.user?.name ?? 'Farmer',
+            viewModel.user?.name ?? context.l10n('farmer'),
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -555,9 +556,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Personal Information',
-            style: TextStyle(
+          Text(
+            context.l10n('personal_information'),
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: AppColors.brown,
@@ -567,22 +568,22 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           // Phone number
           _buildInfoItem(
             icon: Icons.phone_outlined,
-            title: 'Phone Number',
-            value: viewModel.user?.phoneNumber ?? 'Not provided',
+            title: context.l10n('phone_number'),
+            value: viewModel.user?.phoneNumber ?? context.l10n('not_provided'),
           ),
           const SizedBox(height: 12),
           // Address
           _buildInfoItem(
             icon: Icons.home_outlined,
-            title: 'Address',
-            value: viewModel.user?.address ?? 'Not provided',
+            title: context.l10n('address'),
+            value: viewModel.user?.address ?? context.l10n('not_provided'),
           ),
           const SizedBox(height: 12),
           // ID Number
           _buildInfoItem(
             icon: Icons.badge_outlined,
-            title: 'ID Number',
-            value: viewModel.user?.idNumber ?? 'Not provided',
+            title: context.l10n('id_number'),
+            value: viewModel.user?.idNumber ?? context.l10n('not_provided'),
           ),
         ],
       ),
@@ -657,9 +658,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Settings',
-            style: TextStyle(
+          Text(
+            context.l10n('settings'),
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: AppColors.brown,
@@ -669,13 +670,13 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           // Edit Profile Option
           _buildSettingItem(
             icon: Icons.edit_outlined,
-            title: 'Edit Profile',
+            title: context.l10n('edit_profile'),
             onTap: () {
               // Show coming soon notification
               CustomNotification.showComingSoon(
                 context: context,
-                title: 'Edit Profile',
-                message: 'The Edit Profile feature will be available in the next update!',
+                title: context.l10n('edit_profile'),
+                message: context.l10n('edit_profile_coming_soon'),
               );
             },
           ),
@@ -683,13 +684,13 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           // Language Option
           _buildSettingItem(
             icon: Icons.language_outlined,
-            title: 'Change Language',
+            title: context.l10n('change_language'),
             onTap: () {
               // Show coming soon notification
               CustomNotification.showComingSoon(
                 context: context,
-                title: 'Change Language',
-                message: 'Additional language options will be available soon!',
+                title: context.l10n('change_language'),
+                message: context.l10n('language_options_coming_soon'),
               );
             },
           ),
@@ -697,13 +698,13 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           // Help & Support
           _buildSettingItem(
             icon: Icons.help_outline_outlined,
-            title: 'Help & Support',
+            title: context.l10n('help_support'),
             onTap: () {
               // Show coming soon notification
               CustomNotification.showComingSoon(
                 context: context,
-                title: 'Help & Support',
-                message: 'Our support center is under construction and will be available soon!',
+                title: context.l10n('help_support'),
+                message: context.l10n('support_coming_soon'),
               );
             },
           ),
@@ -726,7 +727,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                     }
                   }
                 },
-              title: viewModel.isLoggingOut ? 'Logging out...' : 'Logout',
+              title: viewModel.isLoggingOut ? context.l10n('logging_out') : context.l10n('logout'),
               backgroundColor: const Color.fromARGB(255, 241, 40, 10),
               textColor: const Color.fromARGB(255, 255, 255, 255),
               height: 50,
@@ -834,9 +835,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
               ),
               const SizedBox(height: 20),
               // Title
-              const Text(
-                'Logout',
-                style: TextStyle(
+              Text(
+                context.l10n('logout'),
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.brown,
@@ -844,10 +845,10 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
               ),
               const SizedBox(height: 10),
               // Message
-              const Text(
-                'Are you sure you want to logout from your account?',
+              Text(
+                context.l10n('logout_confirmation'),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
                 ),
@@ -867,9 +868,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                           borderRadius: BorderRadius.circular(10),
                         ),
                         alignment: Alignment.center,
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(
+                        child: Text(
+                          context.l10n('cancel'),
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: AppColors.orange,
@@ -890,9 +891,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                           borderRadius: BorderRadius.circular(10),
                         ),
                         alignment: Alignment.center,
-                        child: const Text(
-                          'Logout',
-                          style: TextStyle(
+                        child: Text(
+                          context.l10n('logout'),
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,

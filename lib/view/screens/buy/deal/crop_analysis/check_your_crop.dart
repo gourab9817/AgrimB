@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
 import 'package:agrimb/core/constants/app_spacing.dart';
 import 'package:agrimb/core/constants/app_text_style.dart';
+import 'package:agrimb/core/localization/localization_extension.dart';
 import './photo_verification_screen.dart';
 import 'package:agrimb/view/widgets/popup/custom_notification.dart';
 import 'package:agrimb/data/services/crop_analysis_service.dart';
@@ -40,9 +41,13 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
 
     try {
       final controller = Provider.of<PhotoCaptureController>(context, listen: false);
+      // Update controller with localization if needed
+      if (controller is PhotoCaptureController) {
+        // The controller should already have localization from the capture screen
+      }
       
       if (controller.capturedImage == null || !controller.capturedImage!.existsSync()) {
-        throw Exception('No image available for analysis');
+        throw Exception(context.l10n('no_image_available'));
       }
 
       // Use the crop analysis service
@@ -57,8 +62,8 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
         // Show success message
         CustomNotification.showSuccess(
           context: context,
-          title: 'Analysis Complete',
-          message: 'Your crop has been successfully analyzed.',
+          title: context.l10n('analysis_complete'),
+          message: context.l10n('crop_analyzed_successfully'),
           duration: const Duration(seconds: 2),
         );
         
@@ -72,7 +77,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
         // API returned an error response
         final errorMessage = result.errorCode != null
             ? result.errorCode!.userFriendlyMessage
-            : result.error ?? 'Unknown error occurred';
+            : result.error ?? context.l10n('unknown_error_occurred');
             
         _showErrorAndGoBack(
           errorMessage,
@@ -82,7 +87,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
     } catch (e) {
       // Handle exceptions
       _showErrorAndGoBack(
-        'Failed to analyze crop',
+        context.l10n('failed_to_analyze_crop'),
         errorCode: 'E999',
         details: e.toString(),
       );
@@ -98,7 +103,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
   void _showErrorAndGoBack(String message, {String? errorCode, String? details}) {
     CustomNotification.showError(
       context: context,
-      title: 'Analysis Failed',
+      title: context.l10n('analysis_failed'),
       message: '${errorCode != null ? '[$errorCode] ' : ''}$message${details != null ? '\n\n$details' : ''}',
       duration: const Duration(seconds: 4),
       onDismiss: () {
@@ -141,7 +146,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Check Your Crop',
+          context.l10n('check_your_crop'),
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -182,7 +187,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
                 
                 // Info text
                 Text(
-                  'Analyze Crop',
+                  context.l10n('analyze_crop'),
                   style: AppTextStyle.heading.copyWith(
                     color: AppColors.brown,
                   ),
@@ -192,7 +197,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
                 const SizedBox(height: AppSpacing.m),
                 
                 Text(
-                  'Check image quality before proceeding.',
+                  context.l10n('check_image_quality'),
                   style: AppTextStyle.body.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -220,7 +225,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
                         ),
                         const SizedBox(height: AppSpacing.m),
                         Text(
-                          'Analysis Complete',
+                          context.l10n('analysis_complete'),
                           style: AppTextStyle.subheading.copyWith(
                             color: AppColors.brown,
                           ),
@@ -275,7 +280,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
                                 ),
                               ),
                               SizedBox(width: 12),
-                              Text('Analyzing...'),
+                              Text(context.l10n('analyzing')),
                             ],
                           )
                         : Row(
@@ -283,7 +288,7 @@ class _CheckYourCropScreenState extends State<CheckYourCropScreen> {
                             children: [
                               Icon(Icons.search),
                               SizedBox(width: 8),
-                              Text('Check Crop'),
+                              Text(context.l10n('check_crop')),
                             ],
                           ),
                   ),

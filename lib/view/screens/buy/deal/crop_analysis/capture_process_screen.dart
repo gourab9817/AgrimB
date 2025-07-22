@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
 import 'package:agrimb/core/constants/app_text_style.dart';
 import 'package:agrimb/core/constants/app_spacing.dart';
+import 'package:agrimb/core/localization/localization_extension.dart';
 import './photo_capture_controller.dart';
 import './photo_preview_screen.dart';
 
@@ -30,7 +31,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _controller = PhotoCaptureController();
+    _controller = PhotoCaptureController(localize: (key) => context.l10n(key));
 
     // Initialize controller after widget is built
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -89,7 +90,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error capturing image: $e')),
+          SnackBar(content: Text(context.l10n('error_capturing_image') + e.toString())),
         );
       }
     }
@@ -131,7 +132,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
                   onPressed: () => Navigator.pop(context),
                 ),
                 title: Text(
-                  'Camera Error',
+                  context.l10n('camera_error'),
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -164,7 +165,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: Text('Retry'),
+                      child: Text(context.l10n('retry')),
                     ),
                   ],
                 ),
@@ -193,7 +194,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Initializing camera...',
+                      context.l10n('initializing_camera'),
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -212,7 +213,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
                 onPressed: () => Navigator.pop(context),
               ),
               title: Text(
-                'Take Photo',
+                context.l10n('take_photo'),
                 style: AppTextStyle.heading.copyWith(
                   color: Colors.white,
                 ),
@@ -250,7 +251,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Photo Guidelines',
+                            context.l10n('photo_guidelines'),
                             style: AppTextStyle.body.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColors.brown,
@@ -264,7 +265,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
                               SizedBox(width: 5),
                               Expanded(
                                 child: Text(
-                                  'Keep the camera at a proper distance from the crop.',
+                                  context.l10n('camera_distance_guideline'),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: AppColors.brown,
@@ -280,7 +281,7 @@ class _CaptureProcessScreenState extends State<CaptureProcessScreen>
                               SizedBox(width: 5),
                               Expanded(
                                 child: Text(
-                                  'Ensure good lighting for a clear photo.',
+                                  context.l10n('lighting_guideline'),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: AppColors.brown,

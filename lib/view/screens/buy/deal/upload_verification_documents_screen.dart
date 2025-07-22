@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/constants/app_text_style.dart';
+import '../../../../core/localization/localization_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../data/repositories/user_repository.dart';
 import '../../../../view_model/buy/deal/upload_verification_documents_view_model.dart';
@@ -61,7 +62,7 @@ class _UploadVerificationDocumentsBody extends StatelessWidget {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'Upload Verification Documents',
+                              context.l10n('upload_verification_documents'),
                               style: AppTextStyle.bold20.copyWith(color: AppColors.brown),
                             ),
                           ),
@@ -69,7 +70,7 @@ class _UploadVerificationDocumentsBody extends StatelessWidget {
                       ),
                       const SizedBox(height: 18),
                       _UploadSection(
-                        label: 'Upload signed contract 📝',
+                        label: context.l10n('upload_signed_contract'),
                         color: AppColors.originalLightOrange,
                         iconColor: AppColors.orange,
                         isSquare: true,
@@ -81,7 +82,7 @@ class _UploadVerificationDocumentsBody extends StatelessWidget {
                       Divider(color: AppColors.divider, thickness: 1, height: 1),
                       const SizedBox(height: 22),
                       _UploadSection(
-                        label: 'Take a Selfie with the Farmer🥄',
+                        label: context.l10n('take_selfie_with_farmer'),
                         color: AppColors.lightBrown,
                         iconColor: AppColors.success,
                         isSquare: true,
@@ -93,7 +94,7 @@ class _UploadVerificationDocumentsBody extends StatelessWidget {
                       Divider(color: AppColors.divider, thickness: 1, height: 1),
                       const SizedBox(height: 22),
                       _UploadSection(
-                        label: 'Upload Final Produce Photo🌾',
+                        label: context.l10n('upload_final_produce_photo'),
                         color: AppColors.lightOrange,
                         iconColor: AppColors.brown,
                         isSquare: true,
@@ -129,7 +130,7 @@ class _UploadVerificationDocumentsBody extends StatelessWidget {
                                 : FittedBox(
                                     fit: BoxFit.scaleDown,
                                     child: Text(
-                                      'Submit',
+                                      context.l10n('submit'),
                                       style: AppTextStyle.bold18.copyWith(color: Colors.white, letterSpacing: 0.5),
                                     ),
                                   ),

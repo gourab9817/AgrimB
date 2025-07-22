@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
+import 'package:agrimb/core/localization/localization_extension.dart';
 import './photo_capture_controller.dart';
 import './check_your_crop.dart';
 
@@ -33,15 +34,15 @@ class PhotoPreviewScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text('Preview', style: TextStyle(color: Colors.white)),
+          title: Text(context.l10n('preview'), style: TextStyle(color: Colors.white)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        body: const Center(
+        body: Center(
           child: Text(
-            'No image captured',
+            context.l10n('no_image_captured'),
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -54,7 +55,7 @@ class PhotoPreviewScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Preview', style: TextStyle(color: Colors.white)),
+        title: Text(context.l10n('preview'), style: TextStyle(color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -86,7 +87,7 @@ class PhotoPreviewScreen extends StatelessWidget {
                         color: Colors.grey[900],
                         child: Center(
                           child: Text(
-                            'Error loading image',
+                            context.l10n('error_loading_image'),
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -142,7 +143,7 @@ class PhotoPreviewScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
-                      'Next',
+                      context.l10n('next'),
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),

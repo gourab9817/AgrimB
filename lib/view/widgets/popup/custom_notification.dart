@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:agrimb/core/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
+import '../../../core/localization/localization_extension.dart';
 
 enum NotificationType {
   success,
@@ -79,7 +80,7 @@ class CustomNotification {
       context: context,
       message: message,
       type: NotificationType.success,
-      title: title ?? 'Success',
+      title: title ?? context.l10n('success'),
       duration: duration,
       onDismiss: onDismiss,
     );
@@ -96,7 +97,7 @@ class CustomNotification {
       context: context,
       message: message,
       type: NotificationType.error,
-      title: title ?? 'Error',
+      title: title ?? context.l10n('error'),
       duration: duration,
       onDismiss: onDismiss,
     );
@@ -113,7 +114,7 @@ class CustomNotification {
       context: context,
       message: message,
       type: NotificationType.info,
-      title: title ?? 'Information',
+      title: title ?? context.l10n('information'),
       duration: duration,
       onDismiss: onDismiss,
     );
@@ -130,7 +131,7 @@ class CustomNotification {
       context: context,
       message: message,
       type: NotificationType.warning,
-      title: title ?? 'Warning',
+      title: title ?? context.l10n('warning'),
       duration: duration,
       onDismiss: onDismiss,
     );
@@ -139,15 +140,15 @@ class CustomNotification {
   static void showComingSoon({
     required BuildContext context,
     String? title,
-    String message = 'This feature is coming soon!',
+    String? message,
     Duration duration = const Duration(seconds: 3),
     VoidCallback? onDismiss,
   }) {
     show(
       context: context,
-      message: message,
+      message: message ?? context.l10n('this_feature_coming_soon'),
       type: NotificationType.comingSoon,
-      title: title ?? 'Coming Soon',
+      title: title ?? context.l10n('coming_soon'),
       duration: duration,
       onDismiss: onDismiss,
     );
@@ -454,9 +455,9 @@ class _CustomNotificationWidgetState extends State<_CustomNotificationWidget> wi
                                     ),
                                     elevation: 5,
                                   ),
-                                  child: const Text(
-                                    'Got it',
-                                    style: TextStyle(
+                                  child: Text(
+                                    context.l10n('got_it'),
+                                    style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -482,9 +483,9 @@ class _CustomNotificationWidgetState extends State<_CustomNotificationWidget> wi
                                     ),
                                     elevation: 5,
                                   ),
-                                  child: const Text(
-                                    'OK',
-                                    style: TextStyle(
+                                  child: Text(
+                                    context.l10n('ok'),
+                                    style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
