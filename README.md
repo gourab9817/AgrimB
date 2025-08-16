@@ -20,6 +20,9 @@
 ---
 
 ## View 
+### Apps functionality
+[![Complete functionalities](https://img.youtube.com/vi/c6D_42jhtY0/0.jpg)](https://youtu.be/c6D_42jhtY0)
+
 ### Notification module 
 [![Agrimb Notification module](https://img.youtube.com/vi/2BlVJvqhKXg/0.jpg)](https://www.youtube.com/watch?v=2BlVJvqhKXg)
 
