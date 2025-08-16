@@ -33,11 +33,11 @@
 ### Apps architecture diagram
 ## Application Architecture
 
-![Architecture Diagram](images/Agrim_B_app_architecture.png)
+![Architecture Diagram](Agrim_B_app_architecture.png)
 
 ## User Flow
 
-![User Flow](images/Agrim_B_app_flow.png)
+![User Flow](Agrim_B_app_flow.png)
 
 ### Key Information:
 - **App Name**: Agrim Buyer
