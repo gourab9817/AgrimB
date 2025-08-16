@@ -692,22 +692,22 @@ class AppColors {
 ## Firebase Configuration
 
 ### Project Setup
-- **Project ID**: `agritech-fbd5e`
+- **Project ID**: 
 - **Support Platforms**: Android, iOS, Web
 - **Security**: Firebase App Check integration
 
 ### Android Configuration
-- **Application ID**: `com.example.agrimb`
-- **Configuration File**: `android/app/google-services.json`
-- **Firebase App ID**: `1:594700370108:android:1d7222b347c96fba1890b9`
+- **Application ID**:
+- **Configuration File**: 
+- **Firebase App ID**:
 
 ### iOS Configuration
 - **Bundle ID**: Configured for iOS deployment
-- **Firebase App ID**: `1:594700370108:ios:a87dcf43845813601890b9`
+- **Firebase App ID**: 
 
 ### Cloud Functions
 - **Runtime**: Node.js 20
-- **Source Directory**: `functions/`
+- **Source Directory**: 
 - **Build Command**: `npm run build`
 - **Deployment**: Automated via Firebase CLI
 
