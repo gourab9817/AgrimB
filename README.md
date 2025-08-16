@@ -31,6 +31,13 @@
 **AgrimSeller** (internally named "agrimb") is a comprehensive Flutter-based mobile application designed as an agricultural marketplace platform. The app serves as a bridge between farmers and buyers, facilitating crop transactions with advanced features like crop analysis, weather integration, and structured deal management.
 
 ### Apps architecture diagram
+## Application Architecture
+
+![Architecture Diagram](images/Agrim_B_app_architecture.png)
+
+## User Flow
+
+![User Flow](images/Agrim_B_app_flow.png)
 
 ### Key Information:
 - **App Name**: Agrim Buyer
